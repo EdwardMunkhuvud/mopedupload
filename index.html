@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <title>Video Uppladdning</title>
+    <title>Video uppladdning</title>
     <style>
         body {
     font-family: 'Times New Roman', Times, serif;
@@ -19,11 +20,12 @@
             text-align: center;
         }
         h1 {
-            font-size: 800%;
+            font-size: 48px;
             color: #ffffffb7;
+            text-shadow: 1px 1px 2px rgb(143, 101, 101), 0 0 1em blue, 0 0 0.2em blue;
         }
         p {
-            font-size: 400%;
+            font-size: 20px;
             color: #a5a5a5ad;
         }
         form {
@@ -35,9 +37,9 @@ input[type="text"] {
     width: 80%;
     padding: 12px;
     margin: 10px 0;
-    font-size: 300%;
+    font-size: 18px;
     border: 1px solid #ccc;
-    border-radius: 12px;
+    border-radius: 4px;
     background-color: #000; /* Svart bakgrund */
     color: #fff; /* Vit text */
     font-family: 'Times New Roman', Times, serif;
@@ -49,7 +51,7 @@ input[type="file"]::file-selector-button {
     border: none;
     padding: 10px;
     cursor: pointer;
-    border-radius: 12px;
+    border-radius: 4px;
     font-family: 'Times New Roman', Times, serif;
 }
 
@@ -63,8 +65,8 @@ input[type="text"]::placeholder {
 
         input[type="submit"] {
             padding: 12px 24px;
-            font-size: 400%;
-            background-color: #333;
+            font-size: 20px;
+            background-color: #3333338a;
             color: #fff;
             border: none;
             border-radius: 12px;
@@ -74,9 +76,10 @@ input[type="text"]::placeholder {
         input[type="submit"]:hover {
             background-color: #555;
         }
-        @media only screen and (max-width: 600px) {
+        
+@media only screen and (max-width: 600px) {
     h1 {
-        font-size: 64px; /* Större rubriktext */
+        font-size: 50px; /* Större rubriktext */
     }
     p {
         font-size: 24px; /* Större infotext */
@@ -84,8 +87,8 @@ input[type="text"]::placeholder {
     input[type="file"],
     input[type="text"] {
         width: 100%;
-        font-size: 24px; /* Större textstorlek i fält */
-        padding: 20px; /* Större padding för mobil */
+        font-size: 20px; /* Större textstorlek i fält */
+        padding: 10px; /* Större padding för mobil */
     }
     input[type="submit"] {
         font-size: 24px; /* Större knapptext */
@@ -98,8 +101,7 @@ input[type="text"]::placeholder {
 <body>
     <div class="container">
         <h1>Video Uppladdning</h1>
-        <p>Vill du att jag ska ladda upp en video med din moped eller annat intressant?
-             Skicka allt råmaterial till mig så fixar jag redigering och ger dig cred. Skriv din tiktok eller insta nedan</p>
+        <p>Ladda upp din video/bild du vill att jag ska ladda upp. <strong>OM</strong> du vill ha cred skriv din @</p>
         <form id="uploadForm">
             <input type="file" id="videoFile" accept="video/*" multiple><br>
             <input type="text" id="comment" placeholder="Skriv en kommentar..."><br>
