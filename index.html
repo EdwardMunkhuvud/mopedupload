@@ -6,14 +6,13 @@
     <title>Video uppladdning</title>
     <style>
         body {
-    font-family: 'Times New Roman', Times, serif;
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
-                url('IMG_7623.jpg') no-repeat center center fixed;
-    background-size: cover;
-    margin: 0;
-    padding: 0;
-}
-
+            font-family: 'Times New Roman', Times, serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                        url('IMG_7623.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
         .container {
             width: 60%;
             margin: 50px auto;
@@ -31,38 +30,33 @@
         form {
             margin-top: 30px;
         }
-        
         input[type="file"],
-input[type="text"] {
-    width: 80%;
-    padding: 12px;
-    margin: 10px 0;
-    font-size: 18px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #000; /* Svart bakgrund */
-    color: #fff; /* Vit text */
-    font-family: 'Times New Roman', Times, serif;
-}
-
-input[type="file"]::file-selector-button {
-    background-color: #000; /* Svart bakgrund på knappen */
-    color: #df7777c7; /* Vit text på knappen */
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-family: 'Times New Roman', Times, serif;
-}
-
-input[type="file"]::file-selector-button:hover {
-    background-color: #555; /* Lite ljusare svart vid hover */
-}
-
-input[type="text"]::placeholder {
-    color: #ccc; /* Ljusare text för placeholder */
-}
-
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #000; /* Svart bakgrund */
+            color: #fff; /* Vit text */
+            font-family: 'Times New Roman', Times, serif;
+        }
+        input[type="file"]::file-selector-button {
+            background-color: #000; /* Svart bakgrund på knappen */
+            color: #df7777c7; /* Vit text på knappen */
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        input[type="file"]::file-selector-button:hover {
+            background-color: #555; /* Lite ljusare svart vid hover */
+        }
+        input[type="text"]::placeholder {
+            color: #ccc; /* Ljusare text för placeholder */
+        }
         input[type="submit"] {
             padding: 12px 24px;
             font-size: 20px;
@@ -76,26 +70,24 @@ input[type="text"]::placeholder {
         input[type="submit"]:hover {
             background-color: #555;
         }
-        
-@media only screen and (max-width: 600px) {
-    h1 {
-        font-size: 45px; /* Större rubriktext */
-    }
-    p {
-        font-size: 24px; /* Större infotext */
-    }
-    input[type="file"],
-    input[type="text"] {
-        width: 100%;
-        font-size: 20px; /* Större textstorlek i fält */
-        padding: 10px; /* Större padding för mobil */
-    }
-    input[type="submit"] {
-        font-size: 24px; /* Större knapptext */
-        padding: 20px 40px; /* Större knapp för mobil */
-    }
-}
-
+        @media only screen and (max-width: 600px) {
+            h1 {
+                font-size: 45px; /* Större rubriktext */
+            }
+            p {
+                font-size: 24px; /* Större infotext */
+            }
+            input[type="file"],
+            input[type="text"] {
+                width: 100%;
+                font-size: 20px; /* Större textstorlek i fält */
+                padding: 10px; /* Större padding för mobil */
+            }
+            input[type="submit"] {
+                font-size: 24px; /* Större knapptext */
+                padding: 20px 40px; /* Större knapp för mobil */
+            }
+        }
     </style>
 </head>
 <body>
@@ -103,48 +95,86 @@ input[type="text"]::placeholder {
         <h1>Video Uppladdning</h1>
         <p>Ladda upp din video/bild du vill att jag ska ladda upp. <strong>OM</strong> du vill ha cred skriv din @</p>
         <form id="uploadForm">
-            <input type="file" id="videoFile" accept="video/*" multiple><br>
+            <input type="file" id="mediaFile" accept="video/*, image/*" multiple><br>
             <input type="text" id="comment" placeholder="Skriv en kommentar..."><br>
             <input type="submit" value="Ladda upp">
         </form>
     </div>
 
     <script>
+        const MAX_SIZE = 8 * 1024 * 1024; // 8 MB
+        const webhookURL = 'https://discord.com/api/webhooks/1288242804522483742/a5t3CgC4UGy_9ebaXfjyj1F8r4f-lygpLmlNE646YvWDWJ8xwmKCt6Q3fuQ39sLkn1Z0';
+
         document.getElementById('uploadForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const webhookURL = 'https://discord.com/api/webhooks/1288242804522483742/a5t3CgC4UGy_9ebaXfjyj1F8r4f-lygpLmlNE646YvWDWJ8xwmKCt6Q3fuQ39sLkn1Z0';
-
-            const files = document.getElementById('videoFile').files;
+            const files = document.getElementById('mediaFile').files;
             const comment = document.getElementById('comment').value;
 
             if (files.length === 0) {
-                alert('Vänligen välj en video att ladda upp.');
+                alert('Vänligen välj en fil att ladda upp.');
                 return;
             }
 
             for (let i = 0; i < files.length; i++) {
-                const formData = new FormData();
-                formData.append('file', files[i]);
-                formData.append('payload_json', JSON.stringify({
-                    content: comment
-                }));
+                const file = files[i];
 
-                fetch(webhookURL, {
-                    method: 'POST',
-                    body: formData
-                }).then(response => {
-                    if (response.ok) {
-                        alert('Video har skickats!');
+                if (file.size > MAX_SIZE) {
+                    if (file.type.startsWith('image/')) {
+                        compressImage(file, comment);
                     } else {
-                        alert('Ett fel uppstod. Var god försök igen.');
+                        alert('Filen är för stor. Maxstorlek är 8 MB.');
+                        return;
                     }
-                }).catch(error => {
-                    console.error('Error:', error);
-                    alert('Ett fel uppstod. Var god försök igen.');
-                });
+                } else {
+                    uploadFile(file, comment);
+                }
             }
         });
+
+        function compressImage(file, comment) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    const scaleFactor = Math.sqrt(MAX_SIZE / file.size); // Skala ner bilden
+                    canvas.width = img.width * scaleFactor;
+                    canvas.height = img.height * scaleFactor;
+
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    canvas.toBlob(function(blob) {
+                        uploadFile(new File([blob], file.name, { type: file.type }), comment);
+                    }, file.type, 0.7); // Kvalitet satt till 70% för JPEG
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function uploadFile(file, comment) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('payload_json', JSON.stringify({ content: comment }));
+
+            fetch(webhookURL, {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    alert('Filen har skickats!');
+                } else {
+                    alert('Ett fel uppstod. Var god försök igen.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('Ett fel uppstod. Var god försök igen.');
+            });
+        }
     </script>
 </body>
 </html>
