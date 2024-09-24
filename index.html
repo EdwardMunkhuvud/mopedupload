@@ -7,7 +7,7 @@
         body {
     font-family: 'Times New Roman', Times, serif;
     background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
-                url('C:\\Users\\edvin\\Desktop\\FF\\mopedupload\\IMG_7623.jpg') no-repeat center center fixed;
+                url('IMG_7623.jpg') no-repeat center center fixed;
     background-size: cover;
     margin: 0;
     padding: 0;
@@ -74,6 +74,25 @@ input[type="text"]::placeholder {
         input[type="submit"]:hover {
             background-color: #555;
         }
+        @media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 64px; /* Större rubriktext */
+    }
+    p {
+        font-size: 24px; /* Större infotext */
+    }
+    input[type="file"],
+    input[type="text"] {
+        width: 100%;
+        font-size: 24px; /* Större textstorlek i fält */
+        padding: 20px; /* Större padding för mobil */
+    }
+    input[type="submit"] {
+        font-size: 24px; /* Större knapptext */
+        padding: 20px 40px; /* Större knapp för mobil */
+    }
+}
+
     </style>
 </head>
 <body>
